@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Flurl;
@@ -23,8 +24,13 @@ namespace UpcomingMovies.Core.Services
         {
             var api = $"/movie/{MovieListTypeToString(type)}";
 
+            if (parameters == null)
+                parameters = new Dictionary<string, object>();
+
+            parameters.Add("api_key", AppConfigurations.ApiKey);
+
             var url = Url.Combine(AppConfigurations.ApiUrl, AppConfigurations.ApiVersion, api)
-                         .SetQueryParams(parameters ?? new Dictionary<string, object>());
+                         .SetQueryParams(parameters);
 
             var result = new ResponseInfo<MovieListResponse>();
             try
@@ -34,14 +40,16 @@ namespace UpcomingMovies.Core.Services
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
                     result.Result = JsonConvert.DeserializeObject<MovieListResponse>(responseString);
+                    result.IsSuccess = true;
                 }
                 else
                 {
                     result.Error = "Service unavailable.";
                 }
             }
-            catch
+            catch (Exception e)
             {
+                Debug.WriteLine(e);
                 result.Error = "Uh oh, something went wrong!";
             }
 

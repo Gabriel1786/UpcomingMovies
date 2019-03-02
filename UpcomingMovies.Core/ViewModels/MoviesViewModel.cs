@@ -71,6 +71,7 @@ namespace UpcomingMovies.Core.ViewModels
                 Movies.AddRange(responseInfo.Result.Movies);
 
                 _currentPage++;
+
                 if (_currentPage > responseInfo.Result.TotalPages)
                     _canLoadMore = false;
             }
