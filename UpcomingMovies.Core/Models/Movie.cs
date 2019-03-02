@@ -10,7 +10,7 @@ namespace UpcomingMovies.Core.Models
         public int Id { get; set; }
 
         [JsonProperty("title")]
-        public int Title { get; set; }
+        public string Title { get; set; }
 
         [JsonProperty("vote_average")]
         public double VoteAverage { get; set; }
