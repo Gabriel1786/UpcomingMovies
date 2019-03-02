@@ -15,5 +15,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UpcomingMovies.Core\UpcomingMovies.Core.csproj" />
+    <ProjectReference Include="..\AiForms.CollectionView\CollectionView\CollectionView.csproj" />
   </ItemGroup>
 </Project>

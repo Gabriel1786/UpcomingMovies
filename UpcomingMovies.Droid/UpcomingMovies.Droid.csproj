@@ -98,6 +98,10 @@
       <Project>{BB0E9C09-649E-4407-8DED-97A46F42FFEB}</Project>
       <Name>UpcomingMovies.Forms.UI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AiForms.CollectionView\CollectionView.Droid\CollectionView.Droid.csproj">
+      <Project>{32BC5FF4-81FB-46DD-98ED-3D33C5318933}</Project>
+      <Name>CollectionView.Droid</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <AndroidEnvironment Include="AndroidEnvironment.txt" />

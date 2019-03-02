@@ -127,6 +127,10 @@
       <Project>{BB0E9C09-649E-4407-8DED-97A46F42FFEB}</Project>
       <Name>UpcomingMovies.Forms.UI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AiForms.CollectionView\CollectionView.iOS\CollectionView.iOS.csproj">
+      <Project>{56F75955-E569-43D2-B6C7-5C2BB4E72FD3}</Project>
+      <Name>CollectionView.iOS</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

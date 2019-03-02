@@ -13,6 +13,7 @@ namespace UpcomingMovies.iOS
         {
             var finished = base.FinishedLaunching(uiApplication, launchOptions);
 
+            AiForms.Renderers.iOS.CollectionViewInit.Init();
             //CustomizeAppearance();
 
             return finished;
