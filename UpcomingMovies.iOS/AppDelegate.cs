@@ -1,6 +1,8 @@
 ﻿using Foundation;
 using MvvmCross.Forms.Platforms.Ios.Core;
 using UIKit;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
 
 namespace UpcomingMovies.iOS
 {
@@ -9,7 +11,36 @@ namespace UpcomingMovies.iOS
     {
         public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
         {
-            return base.FinishedLaunching(uiApplication, launchOptions);
+            var finished = base.FinishedLaunching(uiApplication, launchOptions);
+
+            //CustomizeAppearance();
+
+            return finished;
+        }
+
+        void CustomizeAppearance()
+        {
+            //var primaryDarkColor = Xamarin.Forms.Application.Current.Resources["primaryDarkColor"] as Color?;
+            //var primaryLightColor = Xamarin.Forms.Application.Current.Resources["primaryLightColor"] as Color?;
+
+            //UINavigationBar.Appearance.BarTintColor = primaryDarkColor.Value.ToUIColor();
+            ////UINavigationBar.Appearance.TintColor = primaryLightColor.Value.ToUIColor();
+            //UINavigationBar.Appearance.TintColor = UIColor.White;
+
+            UINavigationBar.Appearance.SetTitleTextAttributes(new UITextAttributes
+            {
+                //TextColor = primaryLightColor.Value.ToUIColor()
+                TextColor = UIColor.White
+            });
+
+            if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
+            {
+                UINavigationBar.Appearance.LargeTitleTextAttributes = new UIStringAttributes
+                {
+                    //ForegroundColor = primaryLightColor.Value.ToUIColor()
+                    ForegroundColor = UIColor.White
+                };
+            }
         }
     }
 }

@@ -7,9 +7,14 @@
         <ResourceDictionary>
             
             <ResourceDictionary.MergedDictionaries>
-                <!--<styles:Colors/>
-                <styles:Labels/>-->
+                <styles:Colors/>
+                <styles:Labels/>
             </ResourceDictionary.MergedDictionaries>
+            
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{DynamicResource primaryDarkColor}" />
+                <Setter Property="BarTextColor" Value="White" />
+            </Style>
             
         </ResourceDictionary>
     </Application.Resources>
