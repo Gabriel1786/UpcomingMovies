@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -73,7 +74,10 @@ namespace UpcomingMovies.Core.ViewModels
                 _currentPage++;
 
                 if (_currentPage > responseInfo.Result.TotalPages)
+                {
                     _canLoadMore = false;
+                    Debug.WriteLine("Loaded all movies");
+                }
             }
         }
 

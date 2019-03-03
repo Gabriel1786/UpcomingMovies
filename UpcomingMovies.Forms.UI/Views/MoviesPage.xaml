@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <views:MvxContentPage x:TypeArguments="viewModels:MoviesViewModel" 
-                    xmlns="http://xamarin.com/schemas/2014/forms" 
-                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-                    xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms" 
-                    xmlns:viewModels="clr-namespace:UpcomingMovies.Core.ViewModels;assembly=UpcomingMovies.Core" 
-                    xmlns:mvx="clr-namespace:MvvmCross.Forms.Bindings;assembly=MvvmCross.Forms"
-                    xmlns:local="clr-namespace:UpcomingMovies.Core;assembly=UpcomingMovies.Core"
-                    x:Class="UpcomingMovies.Forms.UI.Views.MoviesPage"
-                    Title="Movies">
+                      xmlns="http://xamarin.com/schemas/2014/forms" 
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms" 
+                      xmlns:viewModels="clr-namespace:UpcomingMovies.Core.ViewModels;assembly=UpcomingMovies.Core" 
+                      xmlns:mvx="clr-namespace:MvvmCross.Forms.Bindings;assembly=MvvmCross.Forms"
+                      xmlns:local="clr-namespace:UpcomingMovies.Core;assembly=UpcomingMovies.Core"
+                      xmlns:behaviors="clr-namespace:UpcomingMovies.Forms.UI.Behaviors;assembly=UpcomingMovies.Forms.UI"
+                      xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                      xmlns:ai="clr-namespace:AiForms.Renderers;assembly=CollectionView"
+                      x:Class="UpcomingMovies.Forms.UI.Views.MoviesPage"
+                      Title="Movies">
     
-    <Label Text="Movies Page"/>
+    <ai:GridCollectionView x:Name="collectionView" 
+                          BothSidesMargin="5"
+                          GroupFirstSpacing="0"
+                          GroupLastSpacing="0"
+                          ItemsSource="{Binding Movies}"
+                          ItemTapCommand="{Binding ShowMovieDetailViewModelCommand}"
+                          TouchFeedbackColor="Transparent"
+                          GridType="{x:Static ai:GridType.UniformGrid}"
+                          PortraitColumns="2"
+                          LandscapeColumns="4"
+                          ColumnSpacing="1"
+                          RowSpacing="1"
+                          IsPullToRefreshEnabled="false"
+                          PullToRefreshColor="Black"
+                          SpacingType="{x:Static ai:SpacingType.Between}"
+                          ColumnHeight="220">
+        <x:Arguments>
+            <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+        </x:Arguments>
+        
+        <ListView.Behaviors>  
+            <behaviors:InfiniteScroll LoadMoreCommand="{Binding LoadMoreMoviesCommand}" />  
+        </ListView.Behaviors>
+        
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ai:ContentCell>
+                    <AbsoluteLayout Margin="5" BackgroundColor="Blue">
+                        
+                        <ff:CachedImage AbsoluteLayout.LayoutFlags="All" 
+                                        AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                        BackgroundColor="Green" Aspect="AspectFill"
+                                        CacheType="All" RetryCount="0" RetryDelay="500" CacheDuration="30"
+                                        LoadingPlaceholder="movie_placeholder.png"
+                                        ErrorPlaceholder="movie_placeholder.png"
+                                        mvx:Bi.nd="Source ImagePath(PosterPath)" />
+                        
+                        <Label Text="{Binding Title}" BackgroundColor="Red"
+                               FontSize="11"
+                               HorizontalTextAlignment="Center"
+                               AbsoluteLayout.LayoutFlags="YProportional,WidthProportional" 
+                               AbsoluteLayout.LayoutBounds="0,1,1,AutoSize" />
+                    </AbsoluteLayout>
+                </ai:ContentCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ai:GridCollectionView>
     
 </views:MvxContentPage>

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using MvvmCross.Forms.Presenters.Attributes;
+﻿using MvvmCross.Forms.Presenters.Attributes;
 using MvvmCross.Forms.Views;
 using UpcomingMovies.Core.ViewModels;
-using Xamarin.Forms;
 
 namespace UpcomingMovies.Forms.UI.Views
 {
@@ -13,6 +10,13 @@ namespace UpcomingMovies.Forms.UI.Views
         public MoviesPage()
         {
             InitializeComponent();
+
+            SetupCollectionView();
+        }
+
+        void SetupCollectionView()
+        {
+            //TODO: Determine right amount of columns depending on device screen
         }
     }
 }

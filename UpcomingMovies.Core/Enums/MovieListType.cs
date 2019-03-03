@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UpcomingMovies.Core.Models
+namespace UpcomingMovies.Core
 {
     public enum MovieListType
     {

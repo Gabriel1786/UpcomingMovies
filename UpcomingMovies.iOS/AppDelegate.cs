@@ -1,6 +1,8 @@
-﻿using Foundation;
+﻿using System.Net.Http;
+using Foundation;
 using MvvmCross.Forms.Platforms.Ios.Core;
 using UIKit;
+using UpcomingMovies.Core.Configurations;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
@@ -14,34 +16,15 @@ namespace UpcomingMovies.iOS
             var finished = base.FinishedLaunching(uiApplication, launchOptions);
 
             AiForms.Renderers.iOS.CollectionViewInit.Init();
-            //CustomizeAppearance();
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+
+            var config = new FFImageLoading.Config.Configuration
+            {
+                HttpClient = new HttpClient()
+            };
+            FFImageLoading.ImageService.Instance.Initialize(config);
 
             return finished;
-        }
-
-        void CustomizeAppearance()
-        {
-            //var primaryDarkColor = Xamarin.Forms.Application.Current.Resources["primaryDarkColor"] as Color?;
-            //var primaryLightColor = Xamarin.Forms.Application.Current.Resources["primaryLightColor"] as Color?;
-
-            //UINavigationBar.Appearance.BarTintColor = primaryDarkColor.Value.ToUIColor();
-            ////UINavigationBar.Appearance.TintColor = primaryLightColor.Value.ToUIColor();
-            //UINavigationBar.Appearance.TintColor = UIColor.White;
-
-            UINavigationBar.Appearance.SetTitleTextAttributes(new UITextAttributes
-            {
-                //TextColor = primaryLightColor.Value.ToUIColor()
-                TextColor = UIColor.White
-            });
-
-            if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
-            {
-                UINavigationBar.Appearance.LargeTitleTextAttributes = new UIStringAttributes
-                {
-                    //ForegroundColor = primaryLightColor.Value.ToUIColor()
-                    ForegroundColor = UIColor.White
-                };
-            }
         }
     }
 }

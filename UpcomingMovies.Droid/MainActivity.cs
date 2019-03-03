@@ -2,6 +2,7 @@
 using Android.OS;
 using Android.Content.PM;
 using MvvmCross.Forms.Platforms.Android.Views;
+using System.Net.Http;
 
 namespace UpcomingMovies.Droid
 {
@@ -16,6 +17,14 @@ namespace UpcomingMovies.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
+
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(false);
+
+            var config = new FFImageLoading.Config.Configuration
+            {
+                HttpClient = new HttpClient()
+            };
+            FFImageLoading.ImageService.Instance.Initialize(config);
 
             base.OnCreate(bundle);
         }

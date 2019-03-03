@@ -17,7 +17,8 @@ namespace UpcomingMovies.Core.Services
 
         public MovieService()
         {
-            _httpClient = new HttpClient();
+            _httpClient = new HttpClient(); //TODO: maybe abstract this away?
+            _httpClient.Timeout = TimeSpan.FromSeconds(10);
         }
 
         public async Task<ResponseInfo<MovieListResponse>> GetMoviesAsync(MovieListType type, Dictionary<string, object> parameters = null)
@@ -27,9 +28,9 @@ namespace UpcomingMovies.Core.Services
             if (parameters == null)
                 parameters = new Dictionary<string, object>();
 
-            parameters.Add("api_key", AppConfigurations.ApiKey);
+            parameters.Add("api_key", AppConfig.ApiKey);
 
-            var url = Url.Combine(AppConfigurations.ApiUrl, AppConfigurations.ApiVersion, api)
+            var url = Url.Combine(AppConfig.ApiUrl, AppConfig.ApiVersion, api)
                          .SetQueryParams(parameters);
 
             var result = new ResponseInfo<MovieListResponse>();
@@ -50,7 +51,8 @@ namespace UpcomingMovies.Core.Services
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                result.Error = "Uh oh, something went wrong!";
+                //result.Error = "Uh oh, something went wrong!";
+                result.Error = e.Message;
             }
 
             return result;
