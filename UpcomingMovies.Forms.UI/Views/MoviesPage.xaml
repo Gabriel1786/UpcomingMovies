@@ -10,24 +10,24 @@
                       xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
                       xmlns:ai="clr-namespace:AiForms.Renderers;assembly=CollectionView"
                       x:Class="UpcomingMovies.Forms.UI.Views.MoviesPage"
-                      Title="Movies">
+                      Title="{Binding Title}">
     
     <ai:GridCollectionView x:Name="collectionView" 
-                          BothSidesMargin="5"
-                          GroupFirstSpacing="0"
-                          GroupLastSpacing="0"
-                          ItemsSource="{Binding Movies}"
-                          ItemTapCommand="{Binding ShowMovieDetailViewModelCommand}"
-                          TouchFeedbackColor="Transparent"
-                          GridType="{x:Static ai:GridType.UniformGrid}"
-                          PortraitColumns="2"
-                          LandscapeColumns="4"
-                          ColumnSpacing="1"
-                          RowSpacing="1"
-                          IsPullToRefreshEnabled="false"
-                          PullToRefreshColor="Black"
-                          SpacingType="{x:Static ai:SpacingType.Between}"
-                          ColumnHeight="220">
+                           BothSidesMargin="5"
+                           GroupFirstSpacing="0"
+                           GroupLastSpacing="0"
+                           ItemsSource="{Binding Movies}"
+                           ItemTapCommand="{Binding ShowMovieDetailViewModelCommand}"
+                           TouchFeedbackColor="Transparent"
+                           GridType="{x:Static ai:GridType.UniformGrid}"
+                           PortraitColumns="2"
+                           LandscapeColumns="4"
+                           ColumnSpacing="1"
+                           RowSpacing="1"
+                           IsPullToRefreshEnabled="false"
+                           PullToRefreshColor="Black"
+                           SpacingType="{x:Static ai:SpacingType.Between}"
+                           ColumnHeight="290">
         <x:Arguments>
             <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
         </x:Arguments>
@@ -39,21 +39,21 @@
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ai:ContentCell>
-                    <AbsoluteLayout Margin="5" BackgroundColor="Blue">
+                    <AbsoluteLayout Margin="5" BackgroundColor="Transparent">
                         
                         <ff:CachedImage AbsoluteLayout.LayoutFlags="All" 
-                                        AbsoluteLayout.LayoutBounds="0,0,1,1"
-                                        BackgroundColor="Green" Aspect="AspectFill"
+                                        AbsoluteLayout.LayoutBounds="0,0,1,0.85"
+                                        BackgroundColor="Transparent" Aspect="AspectFit"
                                         CacheType="All" RetryCount="0" RetryDelay="500" CacheDuration="30"
                                         LoadingPlaceholder="movie_placeholder.png"
                                         ErrorPlaceholder="movie_placeholder.png"
-                                        mvx:Bi.nd="Source ImagePath(PosterPath)" />
+                                        mvx:Bi.nd="Source MoviePosterPath(PosterPath)" />
                         
                         <Label Text="{Binding Title}" BackgroundColor="Red"
                                FontSize="11"
                                HorizontalTextAlignment="Center"
-                               AbsoluteLayout.LayoutFlags="YProportional,WidthProportional" 
-                               AbsoluteLayout.LayoutBounds="0,1,1,AutoSize" />
+                               AbsoluteLayout.LayoutFlags="YProportional,WidthProportional,HeightProportional" 
+                               AbsoluteLayout.LayoutBounds="0,1,1,0.15" />
                     </AbsoluteLayout>
                 </ai:ContentCell>
             </DataTemplate>

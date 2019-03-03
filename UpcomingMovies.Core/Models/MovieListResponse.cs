@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace UpcomingMovies.Core.Models.Dto
+namespace UpcomingMovies.Core.Models
 {
     public class MovieListResponse
     {

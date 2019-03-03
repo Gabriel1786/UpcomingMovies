@@ -16,7 +16,6 @@
     <Folder Include="Services\" />
     <Folder Include="Services\Interfaces\" />
     <Folder Include="Configurations\" />
-    <Folder Include="Models\Dto\" />
     <Folder Include="Enums\" />
   </ItemGroup>
 </Project>

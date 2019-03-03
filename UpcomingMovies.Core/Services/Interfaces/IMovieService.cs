@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UpcomingMovies.Core.Models;
-using UpcomingMovies.Core.Models.Dto;
 
 namespace UpcomingMovies.Core.Services
 {

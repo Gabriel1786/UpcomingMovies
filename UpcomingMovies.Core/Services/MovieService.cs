@@ -7,7 +7,6 @@ using Flurl;
 using Newtonsoft.Json;
 using UpcomingMovies.Core.Configurations;
 using UpcomingMovies.Core.Models;
-using UpcomingMovies.Core.Models.Dto;
 
 namespace UpcomingMovies.Core.Services
 {
@@ -17,7 +16,7 @@ namespace UpcomingMovies.Core.Services
 
         public MovieService()
         {
-            _httpClient = new HttpClient(); //TODO: maybe abstract this away?
+            _httpClient = new HttpClient();
             _httpClient.Timeout = TimeSpan.FromSeconds(10);
         }
 

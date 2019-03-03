@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UpcomingMovies.Core.Models.Dto
+namespace UpcomingMovies.Core.Models
 {
     public class ResponseInfo
     {
