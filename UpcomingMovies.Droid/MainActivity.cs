@@ -13,6 +13,8 @@ namespace UpcomingMovies.Droid
               LaunchMode = LaunchMode.SingleTask)]
     public class MainActivity : MvxFormsAppCompatActivity
     {
+        public Android.Support.V7.Widget.Toolbar Toolbar { get; set; }
+
         protected override void OnCreate(Bundle bundle)
         {
             TabLayoutResource = Resource.Layout.Tabbar;

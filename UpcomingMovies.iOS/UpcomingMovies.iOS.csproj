@@ -98,6 +98,8 @@
     <Folder Include="Resources\" />
     <Folder Include="Renderers\" />
     <Folder Include="Assets.xcassets\movie_placeholder.imageset\" />
+    <Folder Include="Effects\" />
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -110,6 +112,8 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Setup.cs" />
+    <Compile Include="Effects\ShadowEffect.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MvvmCross.Forms">

@@ -15,6 +15,7 @@
     <Folder Include="Styles\" />
     <Folder Include="Behaviors\" />
     <Folder Include="ValueConverters\" />
+    <Folder Include="Effects\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UpcomingMovies.Core\UpcomingMovies.Core.csproj" />

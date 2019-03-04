@@ -16,6 +16,7 @@ namespace UpcomingMovies.Core.ViewModels
         readonly IMovieService _movieService;
 
         MovieStateContainer _currentStateContainer;
+        MovieStateContainer _previousStateContainer;
         Dictionary<MovieListType, MovieStateContainer> _cachedMovies = new Dictionary<MovieListType, MovieStateContainer>();
 
         public MoviesViewModel(IMvxNavigationService navigationService, IMovieService movieService)
@@ -27,6 +28,7 @@ namespace UpcomingMovies.Core.ViewModels
 
             ShowMovieDetailViewModelCommand = new MvxAsyncCommand<Movie>(ShowMovieDetailView);
             SwitchMovieListTypeCommand = new MvxCommand<MovieListType>(SetMovieListToType);
+            SearchCommand = new MvxAsyncCommand<string>(Search);
             LoadMoreMoviesCommand = new MvxCommand(() =>
             {
                 LoadMoreMoviesTask = MvxNotifyTask.Create(LoadMovies);
@@ -38,7 +40,7 @@ namespace UpcomingMovies.Core.ViewModels
         public override Task Initialize()
         {
             var task = base.Initialize();
-            SetMovieListToType(MovieListType.NowPlaying); //Setting first list type to load
+            SetMovieListToType(MovieListType.Upcoming); //Setting first list type to load
             LoadInitialMoviesTask = MvxNotifyTask.Create(LoadMovies);
             return task;
         }
@@ -58,6 +60,7 @@ namespace UpcomingMovies.Core.ViewModels
         public IMvxAsyncCommand<Movie> ShowMovieDetailViewModelCommand { get; }
         public IMvxCommand LoadMoreMoviesCommand { get; }
         public IMvxCommand SwitchMovieListTypeCommand { get; }
+        public IMvxAsyncCommand<string> SearchCommand { get; }
 
         // Private Methods
         async Task LoadMovies()
@@ -74,12 +77,48 @@ namespace UpcomingMovies.Core.ViewModels
             {
                 Movies.AddRange(responseInfo.Result.Movies);
                 _currentStateContainer.Movies.AddRange(responseInfo.Result.Movies);
-
                 _currentStateContainer.CurrentPage++;
                 _currentStateContainer.TotalPages = responseInfo.Result.TotalPages;
             }
+            else
+            {
+                //TODO: could load more but failed, alert user?
+            }
+        }
 
-            //TODO: could load more but failed, alert user?
+        async Task Search(string query)
+        {
+            Debug.WriteLine($"Searching for {query}");
+
+            if (string.IsNullOrEmpty(query))
+            {
+                MovieListType previousType = _currentStateContainer.MovieListType;
+                if (_previousStateContainer != null)
+                    previousType = _previousStateContainer.MovieListType;
+
+                SetMovieListToType(previousType);
+                return;
+            }
+
+            SetMovieListToType(MovieListType.Search);
+
+            var responseInfo = await _movieService.SearchMoviesAsync(new Dictionary<string, object>
+            {
+                { "query", query }
+            });
+
+            if (responseInfo.IsSuccess)
+            {
+                Movies.AddRange(responseInfo.Result.Movies);
+                _currentStateContainer.Movies.AddRange(responseInfo.Result.Movies);
+                _currentStateContainer.CurrentPage++;
+                _currentStateContainer.TotalPages = responseInfo.Result.TotalPages;
+            }
+            else
+            {
+                SetMovieListToType(_previousStateContainer.MovieListType);
+                //TODO: search failed, showing previous list
+            }
         }
 
         MovieStateContainer GetMovieStateContainerForType(MovieListType movieListType)
@@ -92,11 +131,23 @@ namespace UpcomingMovies.Core.ViewModels
             return stateContainer;
         }
 
+        /// <summary>
+        /// Controls what list should be showing in the "Movies" property, returning cached Movies and state.
+        /// </summary>
+        /// <param name="movieListType">Movie list type.</param>
         void SetMovieListToType(MovieListType movieListType)
         {
+            if (_currentStateContainer != null && _currentStateContainer.MovieListType != MovieListType.Search)
+                _previousStateContainer = _currentStateContainer;
+
             _currentStateContainer = GetMovieStateContainerForType(movieListType);
+
             Movies.Clear();
-            Movies.AddRange(_currentStateContainer.Movies);
+            if (movieListType == MovieListType.Search)
+                _currentStateContainer.Movies.Clear();
+
+            if (_currentStateContainer.Movies.Count > 0) // Circumventing AiForms.CollectionView crash on Android
+                Movies.AddRange(_currentStateContainer.Movies);
 
             switch (movieListType)
             {
@@ -114,6 +165,9 @@ namespace UpcomingMovies.Core.ViewModels
                     break;
                 case MovieListType.Upcoming:
                     Title = "Upcoming Movies";
+                    break;
+                case MovieListType.Search:
+                    Title = "Search Results";
                     break;
             }
         }

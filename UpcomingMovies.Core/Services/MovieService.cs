@@ -57,6 +57,43 @@ namespace UpcomingMovies.Core.Services
             return result;
         }
 
+        public async Task<ResponseInfo<MovieListResponse>> SearchMoviesAsync(Dictionary<string, object> parameters = null)
+        {
+            var api = $"/search/movie";
+
+            if (parameters == null)
+                parameters = new Dictionary<string, object>();
+
+            parameters.Add("api_key", AppConfig.ApiKey);
+
+            var url = Url.Combine(AppConfig.ApiUrl, AppConfig.ApiVersion, api)
+                         .SetQueryParams(parameters);
+
+            var result = new ResponseInfo<MovieListResponse>();
+            try
+            {
+                var response = await _httpClient.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    result.Result = JsonConvert.DeserializeObject<MovieListResponse>(responseString);
+                    result.IsSuccess = true;
+                }
+                else
+                {
+                    result.Error = "Service unavailable.";
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                //result.Error = "Uh oh, something went wrong!";
+                result.Error = e.Message;
+            }
+
+            return result;
+        }
+
         string MovieListTypeToString(MovieListType type)
         {
             switch (type)

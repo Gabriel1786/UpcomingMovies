@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+                    x:Class="UpcomingMovies.Forms.UI.Styles.Fonts">
+    
+    <OnPlatform x:Key="MoviePosterTitleFont" x:TypeArguments="Font">
+        <On Platform="Android" Value="Bold,11" />
+        <On Platform="iOS" Value="AvenirNext-Bold,Bold,11" />
+    </OnPlatform>
+
+</ResourceDictionary>

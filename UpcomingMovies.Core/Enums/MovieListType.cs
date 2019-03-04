@@ -8,6 +8,7 @@ namespace UpcomingMovies.Core
         NowPlaying,
         Popular,
         TopRated,
-        Upcoming
+        Upcoming,
+        Search
     }
 }

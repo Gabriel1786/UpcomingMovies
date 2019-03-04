@@ -8,5 +8,6 @@ namespace UpcomingMovies.Core.Services
     public interface IMovieService
     {
         Task<ResponseInfo<MovieListResponse>> GetMoviesAsync(MovieListType category, Dictionary<string, object> parameters = null);
+        Task<ResponseInfo<MovieListResponse>> SearchMoviesAsync(Dictionary<string, object> parameters = null);
     }
 }

@@ -12519,6 +12519,9 @@ namespace UpcomingMovies.Droid
 			// aapt resource value: 0x7f0b006d
 			public const int action_mode_close_button = 2131427437;
 			
+			// aapt resource value: 0x7f0b0102
+			public const int action_search = 2131427586;
+			
 			// aapt resource value: 0x7f0b00e5
 			public const int action_text = 2131427557;
 			
@@ -13602,6 +13605,22 @@ namespace UpcomingMovies.Droid
 			}
 			
 			private Layout()
+			{
+			}
+		}
+		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f100000
+			public const int search_menu = 2131755008;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
 			{
 			}
 		}

@@ -37,7 +37,7 @@ namespace UpcomingMovies.Core.Models
         public string Popularity { get; set; }
 
         [JsonProperty("release_date")]
-        public DateTime ReleaseDate { get; set; }
+        public string ReleaseDate { get; set; }
 
         [JsonProperty("videos")]
         public VideoResults VideoResults { get; set; }
