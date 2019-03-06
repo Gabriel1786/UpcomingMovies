@@ -19,7 +19,7 @@ namespace UpcomingMovies.Droid.Effects
             {
                 SetNativeShadow();
             }
-            catch (Exception e)
+            catch
             {
             }
         }

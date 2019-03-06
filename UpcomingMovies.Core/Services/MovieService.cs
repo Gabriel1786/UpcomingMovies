@@ -20,15 +20,7 @@ namespace UpcomingMovies.Core.Services
 
         public async Task<ResponseInfo<MovieListResponse>> GetMoviesAsync(MovieListType type, Dictionary<string, object> parameters = null)
         {
-            var api = $"/movie/{MovieListTypeToString(type)}";
-
-            if (parameters == null)
-                parameters = new Dictionary<string, object>();
-
-            parameters.Add("api_key", AppConfig.ApiKey);
-
-            var url = Url.Combine(AppConfig.ApiUrl, AppConfig.ApiVersion, api)
-                         .SetQueryParams(parameters);
+            var url = BuildUrl($"/movie/{MovieListTypeToString(type)}", parameters);
 
             var result = new ResponseInfo<MovieListResponse>();
             try
@@ -55,16 +47,8 @@ namespace UpcomingMovies.Core.Services
 
         public async Task<ResponseInfo<Movie>> GetMovieDetailAsync(string id, Dictionary<string, object> parameters = null)
         {
-            var api = $"/movie/{id}";
-
-            if (parameters == null)
-                parameters = new Dictionary<string, object>();
-
-            parameters.Add("api_key", AppConfig.ApiKey);
-            parameters.Add("append_to_response", "videos,credits");
-
-            var url = Url.Combine(AppConfig.ApiUrl, AppConfig.ApiVersion, api)
-                         .SetQueryParams(parameters);
+            var url = BuildUrl($"/movie/{id}", parameters);
+            url = Url.Combine(url).SetQueryParam("append_to_response", "videos,credits");
 
             var result = new ResponseInfo<Movie>();
             try
@@ -91,15 +75,7 @@ namespace UpcomingMovies.Core.Services
 
         public async Task<ResponseInfo<MovieListResponse>> SearchMoviesAsync(Dictionary<string, object> parameters = null)
         {
-            var api = $"/search/movie";
-
-            if (parameters == null)
-                parameters = new Dictionary<string, object>();
-
-            parameters.Add("api_key", AppConfig.ApiKey);
-
-            var url = Url.Combine(AppConfig.ApiUrl, AppConfig.ApiVersion, api)
-                         .SetQueryParams(parameters);
+            var url = BuildUrl($"/search/movie", parameters);
 
             var result = new ResponseInfo<MovieListResponse>();
             try
@@ -122,6 +98,19 @@ namespace UpcomingMovies.Core.Services
             }
 
             return result;
+        }
+
+        string BuildUrl(string api, Dictionary<string, object> parameters = null)
+        {
+            if (parameters == null)
+                parameters = new Dictionary<string, object>();
+
+            parameters.Add("api_key", AppConfig.ApiKey);
+
+            var url = Url.Combine(AppConfig.ApiUrl, AppConfig.ApiVersion, api)
+                         .SetQueryParams(parameters);
+
+            return url;
         }
 
         string MovieListTypeToString(MovieListType type)

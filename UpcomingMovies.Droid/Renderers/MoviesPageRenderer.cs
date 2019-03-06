@@ -97,7 +97,6 @@ namespace UpcomingMovies.Droid.Renderers
                 return;
 
             mainActivity?.Toolbar?.Menu?.RemoveItem(Resource.Id.action_search);
-            //mainActivity?.Toolbar?.Menu?.Clear();
         }
 
         protected override void Dispose(bool disposing)
@@ -112,7 +111,6 @@ namespace UpcomingMovies.Droid.Renderers
 
                 var mainActivity = (MainActivity)context;
                 mainActivity?.Toolbar?.Menu?.RemoveItem(Resource.Id.action_search);
-                //mainActivity?.Toolbar?.Menu?.Clear();
             }
 
             base.Dispose(disposing);

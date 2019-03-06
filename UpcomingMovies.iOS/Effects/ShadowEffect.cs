@@ -20,7 +20,7 @@ namespace UpcomingMovies.iOS.Effects
                 SetNativeShadowOffset();
                 SetNativeShadowOpacity();
             }
-            catch (Exception e)
+            catch
             {
             }
         }

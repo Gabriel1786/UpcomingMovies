@@ -138,19 +138,20 @@ namespace UpcomingMovies.Core.ViewModels
                 if (responseInfo.Result.Movies.Count > 0) // Circumventing AiForms.CollectionView crash on Android
                 {
                     Movies.AddRange(responseInfo.Result.Movies);
+                    _currentStateContainer.Movies.AddRange(responseInfo.Result.Movies);
+                    _currentStateContainer.CurrentPage++;
+                    _currentStateContainer.TotalPages = responseInfo.Result.TotalPages;
                     EmptySearchResults = false;
                 }
                 else
                 {
                     EmptySearchResults = true;
                 }
-                _currentStateContainer.Movies.AddRange(responseInfo.Result.Movies);
-                _currentStateContainer.CurrentPage++;
-                _currentStateContainer.TotalPages = responseInfo.Result.TotalPages;
             }
             else
             {
-                SetMovieListToType(_previousStateContainer.MovieListType);
+                FailMessage = responseInfo.Error;
+                LoadFailed = true;
             }
         }
 
@@ -189,6 +190,8 @@ namespace UpcomingMovies.Core.ViewModels
 
             Movies.Clear();
             EmptySearchResults = false;
+            LoadFailed = false;
+            FailMessage = null;
 
             if (movieListType == MovieListType.Search)
                 _currentStateContainer.Movies.Clear();

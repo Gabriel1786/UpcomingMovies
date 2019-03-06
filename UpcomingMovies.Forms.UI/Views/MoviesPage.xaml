@@ -48,7 +48,6 @@
                         </behaviors:EventToCommandBehavior>
                     </SearchBar.Behaviors>
             </SearchBar>
-            
             <ai:GridCollectionView x:Name="collectionView" 
                                BothSidesMargin="5"
                                GroupFirstSpacing="0"
@@ -79,7 +78,6 @@
                     <DataTemplate>
                         <ai:ContentCell>
                             <AbsoluteLayout Margin="5" BackgroundColor="Transparent">
-                                
                                 <ff:CachedImage AbsoluteLayout.LayoutFlags="All" 
                                                 AbsoluteLayout.LayoutBounds="0,0,1,0.85"
                                                 BackgroundColor="Transparent" Aspect="AspectFit"
@@ -93,7 +91,6 @@
                                                 effects:ShadowEffect.ShadowOpacity="0.5"
                                                 effects:ShadowEffect.ShadowXOffset="4"
                                                 effects:ShadowEffect.ShadowYOffset="4"/>
-                                
                                 <Label Text="{Binding Title}" BackgroundColor="Transparent" Margin="3"
                                        Style="{StaticResource MovieListTitleStyle}"
                                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
@@ -104,11 +101,10 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ai:GridCollectionView>
-        
         </StackLayout>
         <Label AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
                AbsoluteLayout.LayoutBounds="0,1,1,AutoSize"
-               IsVisible="{Binding LoadFailed}" TextColor="Gray" FontSize="16"
+               IsVisible="{Binding LoadFailed}" TextColor="Gray" FontSize="14"
                BackgroundColor="White" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
                HeightRequest="50"
                Text="{Binding FailMessage}"/>
