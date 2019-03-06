@@ -83,7 +83,7 @@
                                 <ff:CachedImage AbsoluteLayout.LayoutFlags="All" 
                                                 AbsoluteLayout.LayoutBounds="0,0,1,0.85"
                                                 BackgroundColor="Transparent" Aspect="AspectFit"
-                                                CacheType="All" RetryCount="0" RetryDelay="500" CacheDuration="30"
+                                                CacheType="All" RetryCount="5" RetryDelay="1500" CacheDuration="30"
                                                 LoadingPlaceholder="movie_placeholder.png"
                                                 ErrorPlaceholder="movie_placeholder.png"
                                                 Source="{Binding PosterPath, Converter={StaticResource movieImagePathConverter}, ConverterParameter='300'}"
@@ -108,8 +108,13 @@
         </StackLayout>
         <Label AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
-               BackgroundColor="Red" IsVisible="false"
+               IsVisible="false" TextColor="Red"
                Text="You are offline."/>
+        <Label AbsoluteLayout.LayoutFlags="PositionProportional"
+               AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
+               TextColor="Gray" FontSize="16"
+               IsVisible="{Binding EmptySearchResults}"
+               Text="No movies found."/>
     </AbsoluteLayout>
     
 </views:MvxContentPage>

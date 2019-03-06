@@ -286,7 +286,7 @@ namespace UpcomingMovies.Forms.UI.Views
         {
             var overviewLabel = new Label
             {
-                Margin = new Thickness(15, 8),
+                Margin = new Thickness(20, 8),
                 Style = Application.Current.Resources["MovieDetailStyle"] as Style
             };
             overviewLabel.SetBinding(Label.TextProperty, new Binding("Movie.Overview", BindingMode.Default));
@@ -297,7 +297,7 @@ namespace UpcomingMovies.Forms.UI.Views
         {
             var releaseDateLabel = new Label
             {
-                Margin = new Thickness(15, 8, 0, 0),
+                Margin = new Thickness(20, 8, 20, 0),
                 Style = Application.Current.Resources["MovieDetailStyle"] as Style
             };
             releaseDateLabel.SetBinding(Label.TextProperty, new Binding("Movie.ReleaseDate", BindingMode.Default, new ReleaseDateConverter()));
@@ -308,7 +308,7 @@ namespace UpcomingMovies.Forms.UI.Views
         {
             var genres = new Label
             {
-                Margin = new Thickness(15, 0, 0, 8),
+                Margin = new Thickness(20, 0, 20, 8),
                 Style = Application.Current.Resources["MovieDetailStyle"] as Style
             };
             genres.SetBinding(Label.TextProperty, new Binding("Movie.Genres", BindingMode.Default, new GenreListConverter()));
@@ -339,12 +339,9 @@ namespace UpcomingMovies.Forms.UI.Views
             return container;
         }
 
-        View SetupVideos() //fixme
+        View SetupVideos()
         {
-            //var dataTemplate = new DataTemplate(typeof(VideoTemplate));
-            var vt = new VideoTemplate
-            {
-            };
+            var vt = new VideoTemplate();
             vt.SetBinding(StackLayout.BindingContextProperty, new Binding("Movie.VideoResults.Videos", BindingMode.Default, null));
             return vt;
         }

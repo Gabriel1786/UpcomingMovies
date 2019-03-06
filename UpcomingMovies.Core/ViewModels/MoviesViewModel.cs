@@ -61,6 +61,13 @@ namespace UpcomingMovies.Core.ViewModels
             set => SetProperty(ref _isRefreshing, value);
         }
 
+        bool _emptySearchResults;
+        public bool EmptySearchResults
+        {
+            get => _emptySearchResults;
+            set => SetProperty(ref _emptySearchResults, value);
+        }
+
         public MvxNotifyTask LoadInitialMoviesTask { get; private set; }
         public MvxNotifyTask LoadMoreMoviesTask { get; private set; }
 
@@ -118,7 +125,15 @@ namespace UpcomingMovies.Core.ViewModels
 
             if (responseInfo.IsSuccess)
             {
-                Movies.AddRange(responseInfo.Result.Movies);
+                if (responseInfo.Result.Movies.Count > 0) // Circumventing AiForms.CollectionView crash on Android
+                {
+                    Movies.AddRange(responseInfo.Result.Movies);
+                    EmptySearchResults = false;
+                }
+                else
+                {
+                    EmptySearchResults = true;
+                }
                 _currentStateContainer.Movies.AddRange(responseInfo.Result.Movies);
                 _currentStateContainer.CurrentPage++;
                 _currentStateContainer.TotalPages = responseInfo.Result.TotalPages;
@@ -162,6 +177,8 @@ namespace UpcomingMovies.Core.ViewModels
             _currentStateContainer = GetMovieStateContainerForType(movieListType);
 
             Movies.Clear();
+            EmptySearchResults = false;
+
             if (movieListType == MovieListType.Search)
                 _currentStateContainer.Movies.Clear();
 

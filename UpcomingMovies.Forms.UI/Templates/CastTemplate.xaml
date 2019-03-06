@@ -31,8 +31,8 @@
                 <fftransformations:CircleTransformation BorderHexColor="#FFFFFF">
                     <fftransformations:CircleTransformation.BorderSize>
                         <OnPlatform x:TypeArguments="x:Double">
-                            <On Platform="Android" Value="6" />
-                            <On Platform="iOS" Value="10" />
+                            <On Platform="Android" Value="12" />
+                            <On Platform="iOS" Value="12" />
                         </OnPlatform>
                     </fftransformations:CircleTransformation.BorderSize>
                 </fftransformations:CircleTransformation>

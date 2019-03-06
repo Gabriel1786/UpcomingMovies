@@ -26,12 +26,12 @@
         <Setter Property="VerticalOptions" Value="CenterAndExpand" /> 
         <Setter Property="Margin" Value="30,0,0,0" /> 
         <Setter Property="VerticalTextAlignment" Value="Center" /> 
-        <Setter Property="Font" Value="{DynamicResource MoviePosterTitleFontBigger}" />
+        <Setter Property="Font" Value="{DynamicResource MovieDetailHeaderFont}" />
     </Style>
     
     <Style x:Key="MovieDetailQuoteStyle" TargetType="Label">
         <Setter Property="TextColor" Value="Black"/>
-        <Setter Property="Font" Value="{DynamicResource MoviePosterTitleFontBiggerItalic}" />
+        <Setter Property="Font" Value="{DynamicResource MovieDetailQuoteFont}" />
     </Style>
     
 </ResourceDictionary>
