@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace UpcomingMovies.Core.Models
 {
@@ -9,23 +7,8 @@ namespace UpcomingMovies.Core.Models
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        string _site;
         [JsonProperty("site")]
-        public string Site
-        {
-            get => _site;
-            set
-            {
-                if (value != "YouTube")
-                {
-                    Console.WriteLine($"Must implement {value}");
-                }
-                else
-                {
-                    _site = value;
-                }
-            }
-        }
+        public string Site { get; set; }
 
         [JsonProperty("key")]
         public string Key { get; set; }
@@ -40,11 +23,5 @@ namespace UpcomingMovies.Core.Models
 
             return string.Empty;
         }
-    }
-
-    public class VideoResults
-    {
-        [JsonProperty("results")]
-        public List<Video> Videos { get; set; }
     }
 }

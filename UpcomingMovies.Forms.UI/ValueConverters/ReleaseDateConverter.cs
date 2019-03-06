@@ -16,9 +16,9 @@ namespace UpcomingMovies.Forms.UI.ValueConverters
                 {
                     date = DateTime.ParseExact(dateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 }
-                catch (Exception e)
+                catch
                 {
-                    Debug.WriteLine($"Could not parse Date in ReleaseDateConverter: {e}");
+                    return dateString;
                 }
                 return $"Release Date: {date.ToString("dd MMMM yyyy")}";
             }

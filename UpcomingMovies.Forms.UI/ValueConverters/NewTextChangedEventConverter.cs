@@ -8,10 +8,9 @@ namespace UpcomingMovies.Forms.UI.ValueConverters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is TextChangedEventArgs))
+            if (!(value is TextChangedEventArgs textChanged))
                 return null;
 
-            var textChanged = value as TextChangedEventArgs;
             return textChanged.NewTextValue;
         }
 

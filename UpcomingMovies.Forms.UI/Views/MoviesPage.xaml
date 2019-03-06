@@ -106,10 +106,12 @@
             </ai:GridCollectionView>
         
         </StackLayout>
-        <Label AbsoluteLayout.LayoutFlags="PositionProportional"
-               AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
-               IsVisible="false" TextColor="Red"
-               Text="You are offline."/>
+        <Label AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+               AbsoluteLayout.LayoutBounds="0,1,1,AutoSize"
+               IsVisible="{Binding LoadFailed}" TextColor="Gray" FontSize="16"
+               BackgroundColor="White" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+               HeightRequest="50"
+               Text="{Binding FailMessage}"/>
         <Label AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
                TextColor="Gray" FontSize="16"

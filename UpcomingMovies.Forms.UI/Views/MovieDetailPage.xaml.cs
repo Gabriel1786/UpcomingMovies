@@ -51,16 +51,10 @@ namespace UpcomingMovies.Forms.UI.Views
             {
                 if (e.ScrollY < 0)
                 {
-                    //backdropImage.Margin = new Thickness(0, 0, 0, 0);
                     backdropImage.Layout(new Rectangle(e.ScrollY, e.ScrollY, scrollView.Width - e.ScrollY * 2, currentBackdropCalculatedHeight - e.ScrollY));
                 }
                 else
                 {
-                    if (Device.RuntimePlatform == Device.iOS) // sadly this effect is buggy on android
-                    {
-                        //backdropImage.Margin = new Thickness(0, e.ScrollY, 0, e.ScrollY);
-                    }
-
                     backdropImage.Layout(new Rectangle(0, 0, scrollView.Width, backdropImage.Height));
                 }
             };
@@ -342,7 +336,7 @@ namespace UpcomingMovies.Forms.UI.Views
         View SetupVideos()
         {
             var vt = new VideoTemplate();
-            vt.SetBinding(StackLayout.BindingContextProperty, new Binding("Movie.VideoResults.Videos", BindingMode.Default, null));
+            vt.SetBinding(BindingContextProperty, new Binding("Movie.VideoResults.Videos", BindingMode.Default, null));
             return vt;
         }
 

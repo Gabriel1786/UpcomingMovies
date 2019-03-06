@@ -17,5 +17,6 @@
     <Folder Include="Services\Interfaces\" />
     <Folder Include="Configurations\" />
     <Folder Include="Enums\" />
+    <Folder Include="UiMessages\" />
   </ItemGroup>
 </Project>

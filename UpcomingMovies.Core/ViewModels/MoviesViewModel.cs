@@ -14,7 +14,6 @@ namespace UpcomingMovies.Core.ViewModels
     {
         readonly IMvxNavigationService _navigationService;
         readonly IMovieService _movieService;
-
         MovieStateContainer _currentStateContainer;
         MovieStateContainer _previousStateContainer;
         Dictionary<MovieListType, MovieStateContainer> _cachedMovies = new Dictionary<MovieListType, MovieStateContainer>();
@@ -23,9 +22,7 @@ namespace UpcomingMovies.Core.ViewModels
         {
             _navigationService = navigationService;
             _movieService = movieService;
-
             Movies = new MvxObservableCollection<Movie>();
-
             ShowMovieDetailViewModelCommand = new MvxAsyncCommand<Movie>(ShowMovieDetailView);
             SwitchMovieListTypeCommand = new MvxCommand<MovieListType>(SetMovieListToType);
             SearchCommand = new MvxAsyncCommand<string>(Search);
@@ -41,7 +38,7 @@ namespace UpcomingMovies.Core.ViewModels
         public override Task Initialize()
         {
             var task = base.Initialize();
-            SetMovieListToType(MovieListType.Upcoming); //Setting first list type to load
+            SetMovieListToType(MovieListType.Upcoming);
             LoadInitialMoviesTask = MvxNotifyTask.Create(LoadMovies);
             return task;
         }
@@ -66,6 +63,20 @@ namespace UpcomingMovies.Core.ViewModels
         {
             get => _emptySearchResults;
             set => SetProperty(ref _emptySearchResults, value);
+        }
+
+        bool _loadFailed;
+        public bool LoadFailed
+        {
+            get => _loadFailed;
+            set => SetProperty(ref _loadFailed, value);
+        }
+
+        string _failMessage;
+        public string FailMessage
+        {
+            get => _failMessage;
+            set => SetProperty(ref _failMessage, value);
         }
 
         public MvxNotifyTask LoadInitialMoviesTask { get; private set; }
@@ -98,14 +109,13 @@ namespace UpcomingMovies.Core.ViewModels
             }
             else
             {
-                //TODO: could load more but failed, alert user?
+                FailMessage = responseInfo.Error;
+                LoadFailed = true;
             }
         }
 
         async Task Search(string query)
         {
-            Debug.WriteLine($"Searching for {query}");
-
             if (string.IsNullOrEmpty(query))
             {
                 MovieListType previousType = _currentStateContainer.MovieListType;
@@ -141,12 +151,13 @@ namespace UpcomingMovies.Core.ViewModels
             else
             {
                 SetMovieListToType(_previousStateContainer.MovieListType);
-                //TODO: search failed, showing previous list
             }
         }
 
         async Task Refresh()
         {
+            LoadFailed = false;
+            FailMessage = null;
             IsRefreshing = true;
             Movies.Clear();
             _currentStateContainer.Movies.Clear();
@@ -188,22 +199,22 @@ namespace UpcomingMovies.Core.ViewModels
             switch (movieListType)
             {
                 case MovieListType.Latest:
-                    Title = "Latest Movies";
+                    Title = UiMessages.LatestMovies;
                     break;
                 case MovieListType.NowPlaying:
-                    Title = "Now Playing";
+                    Title = UiMessages.NowPlaying;
                     break;
                 case MovieListType.Popular:
-                    Title = "Popular Movies";
+                    Title = UiMessages.PopularMovies;
                     break;
                 case MovieListType.TopRated:
-                    Title = "Top Rated Movies";
+                    Title = UiMessages.TopRatedMovies;
                     break;
                 case MovieListType.Upcoming:
-                    Title = "Upcoming Movies";
+                    Title = UiMessages.UpcomingMovies;
                     break;
                 case MovieListType.Search:
-                    Title = "Search Results";
+                    Title = UiMessages.SearchResults;
                     break;
             }
         }

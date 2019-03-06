@@ -14,16 +14,13 @@ namespace UpcomingMovies.Droid.Effects
     {
         protected override void OnAttached()
         {
-            return; //FIXME
+            return; //TODO: this not working yet
             try
             {
-                Console.WriteLine($"Applying Shadow Effect on {Element}");
                 SetNativeShadow();
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"Not able to attach 'ShadowEffect' in {Element}.");
-                Console.WriteLine(e);
             }
         }
 

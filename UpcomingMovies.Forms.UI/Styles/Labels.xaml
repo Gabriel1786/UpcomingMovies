@@ -2,15 +2,12 @@
 <ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" 
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
                     x:Class="UpcomingMovies.Forms.UI.Styles.Labels">
-   
-    <!-- Movie List Poster Title -->
     
     <Style x:Key="MovieListTitleStyle" TargetType="Label">
         <Setter Property="TextColor" Value="Black"/>
         <Setter Property="Font" Value="{DynamicResource MoviePosterTitleFont}" />
     </Style>
     
-    <!-- Movie Detail Title -->
     <Style x:Key="MovieTitleStyle" TargetType="Label">
         <Setter Property="TextColor" Value="Black"/>
         <Setter Property="Font" Value="{DynamicResource MoviePosterTitleFont}" />

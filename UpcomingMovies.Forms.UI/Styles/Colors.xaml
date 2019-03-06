@@ -5,9 +5,5 @@
     
     <Color x:Key="primaryDarkColor">#26547C</Color>
     <Color x:Key="primaryLightColor">#6487A7</Color>
-    <Color x:Key="secondaryDarkColor">#C09D31</Color>
-    <Color x:Key="secondaryLightColor">#DABA57</Color>
-    <Color x:Key="tertiaryDarkColor">#C05E31</Color>
-    <Color x:Key="tertiaryLightColor">#DA8057</Color>
     
 </ResourceDictionary>

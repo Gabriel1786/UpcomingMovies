@@ -15,7 +15,6 @@ namespace UpcomingMovies.iOS.Effects
         {
             try
             {
-                Console.WriteLine($"Applying Shadow Effect on {Element}");
                 SetNativeShadowColor();
                 SetNativeShadowRadius();
                 SetNativeShadowOffset();
@@ -23,8 +22,6 @@ namespace UpcomingMovies.iOS.Effects
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"Not able to attach 'ShadowEffect' in {Element}.");
-                Console.WriteLine(e);
             }
         }
 

@@ -42,13 +42,11 @@ namespace UpcomingMovies.Core.Services
                 }
                 else
                 {
-                    result.Error = "Service unavailable.";
+                    result.Error = UiMessages.ServiceUnavailable;
                 }
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
-                //result.Error = "Uh oh, something went wrong!";
                 result.Error = e.Message;
             }
 
@@ -80,13 +78,11 @@ namespace UpcomingMovies.Core.Services
                 }
                 else
                 {
-                    result.Error = "Service unavailable.";
+                    result.Error = UiMessages.ServiceUnavailable;
                 }
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
-                //result.Error = "Uh oh, something went wrong!";
                 result.Error = e.Message;
             }
 
@@ -117,13 +113,11 @@ namespace UpcomingMovies.Core.Services
                 }
                 else
                 {
-                    result.Error = "Service unavailable.";
+                    result.Error = UiMessages.ServiceUnavailable;
                 }
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
-                //result.Error = "Uh oh, something went wrong!";
                 result.Error = e.Message;
             }
 

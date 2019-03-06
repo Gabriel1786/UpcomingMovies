@@ -21,29 +21,19 @@ namespace UpcomingMovies.Forms.UI.Views
             var desiredCellWidth = 160;
 
             DisplayInfo info = DeviceDisplay.MainDisplayInfo;
+
+            var dipWidth = info.Width / info.Density;
+            var dipHeight = info.Height / info.Density;
+
             if (info.Orientation == DisplayOrientation.Portrait)
             {
-                var dipWidth = info.Width / info.Density;
-                var numberOfCellsP = dipWidth / desiredCellWidth;
-
-                collectionView.PortraitColumns = (int)Math.Floor(numberOfCellsP);
-
-                var dipHeight = info.Height / info.Density;
-                var numberOfCellsL = dipHeight / desiredCellWidth;
-
-                collectionView.LandscapeColumns = (int)Math.Floor(numberOfCellsL);
+                collectionView.PortraitColumns = (int)Math.Floor(dipWidth / desiredCellWidth);
+                collectionView.LandscapeColumns = (int)Math.Floor(dipHeight / desiredCellWidth);
             }
             else
             {
-                var dipHeight = info.Height / info.Density;
-                var numberOfCellsP = dipHeight / desiredCellWidth;
-
-                collectionView.PortraitColumns = (int)Math.Floor(numberOfCellsP);
-
-                var dipWidth = info.Width / info.Density;
-                var numberOfCellsL = dipWidth / desiredCellWidth;
-
-                collectionView.LandscapeColumns = (int)Math.Floor(numberOfCellsL);
+                collectionView.PortraitColumns = (int)Math.Floor(dipHeight / desiredCellWidth);
+                collectionView.LandscapeColumns = (int)Math.Floor(dipWidth / desiredCellWidth);
             }
         }
     }
