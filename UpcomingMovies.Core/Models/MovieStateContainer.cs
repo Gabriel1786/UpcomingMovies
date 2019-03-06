@@ -13,6 +13,8 @@ namespace UpcomingMovies.Core.Models
 
         public int TotalPages { get; set; }
 
+        public string Query { get; set; }
+
         public MovieStateContainer()
         {
             Movies = new List<Movie>();

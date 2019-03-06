@@ -125,7 +125,8 @@ namespace UpcomingMovies.Droid.Renderers
             if (detachedView == searchView)
             {
                 var moviesPage = Element as MoviesPage;
-                moviesPage.ViewModel.SearchCommand.Execute("");
+                if (!moviesPage.ViewModel.IsNavigating)
+                    moviesPage.ViewModel.SearchCommand.Execute("");
             }
         }
     }

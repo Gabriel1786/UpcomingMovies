@@ -35,18 +35,18 @@
                        PlaceholderColor="LightGray"
                        SearchCommand="{Binding SearchCommand}"
                        SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}">
-                    <SearchBar.IsVisible> <!-- Android using native approach in custom renderer -->
-                        <OnPlatform x:TypeArguments="x:Boolean">
-                            <On Platform="Android" Value="false"/>
-                            <On Platform="iOS" Value="true"/>
-                        </OnPlatform>
-                    </SearchBar.IsVisible>
-                    <SearchBar.Behaviors> 
-                        <behaviors:EventToCommandBehavior EventName="TextChanged"
-                                                          Command="{Binding SearchCommand}"
-                                                          Converter="{StaticResource newTextChangedEventConverter}">
-                        </behaviors:EventToCommandBehavior>
-                    </SearchBar.Behaviors>
+                <SearchBar.IsVisible> <!-- Android using native approach in custom renderer -->
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <On Platform="Android" Value="false"/>
+                        <On Platform="iOS" Value="true"/>
+                    </OnPlatform>
+                </SearchBar.IsVisible>
+                <!--<SearchBar.Behaviors> 
+                    <behaviors:EventToCommandBehavior EventName="TextChanged"
+                                                      Command="{Binding SearchCommand}"
+                                                      Converter="{StaticResource newTextChangedEventConverter}">
+                    </behaviors:EventToCommandBehavior>
+                </SearchBar.Behaviors>-->
             </SearchBar>
             <ai:GridCollectionView x:Name="collectionView" 
                                BothSidesMargin="5"

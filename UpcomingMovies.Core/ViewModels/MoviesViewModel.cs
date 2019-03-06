@@ -29,7 +29,7 @@ namespace UpcomingMovies.Core.ViewModels
             RefreshCommand = new MvxAsyncCommand(Refresh);
             LoadMoreMoviesCommand = new MvxCommand(() =>
             {
-                LoadMoreMoviesTask = MvxNotifyTask.Create(LoadMovies);
+                LoadMoreMoviesTask = MvxNotifyTask.Create(LoadMore);
                 RaisePropertyChanged(() => LoadMoreMoviesTask);
             });
         }
@@ -79,6 +79,13 @@ namespace UpcomingMovies.Core.ViewModels
             set => SetProperty(ref _failMessage, value);
         }
 
+        bool _isNavigating;
+        public bool IsNavigating
+        {
+            get => _isNavigating;
+            set => SetProperty(ref _isNavigating, value);
+        }
+
         public MvxNotifyTask LoadInitialMoviesTask { get; private set; }
         public MvxNotifyTask LoadMoreMoviesTask { get; private set; }
 
@@ -92,9 +99,6 @@ namespace UpcomingMovies.Core.ViewModels
         // Private Methods
         async Task LoadMovies()
         {
-            if (!_currentStateContainer.CanLoadMore())
-                return;
-
             var responseInfo = await _movieService.GetMoviesAsync(_currentStateContainer.MovieListType, new Dictionary<string, object>
             {
                 { "page", _currentStateContainer.CurrentPage }
@@ -114,6 +118,17 @@ namespace UpcomingMovies.Core.ViewModels
             }
         }
 
+        async Task LoadMore()
+        {
+            if (!_currentStateContainer.CanLoadMore())
+                return;
+
+            if (_currentStateContainer.MovieListType == MovieListType.Search)
+                await Search(_currentStateContainer.Query);
+            else
+                await LoadMovies();
+        }
+
         async Task Search(string query)
         {
             if (string.IsNullOrEmpty(query))
@@ -127,10 +142,12 @@ namespace UpcomingMovies.Core.ViewModels
             }
 
             SetMovieListToType(MovieListType.Search);
+            _currentStateContainer.Query = query;
 
             var responseInfo = await _movieService.SearchMoviesAsync(new Dictionary<string, object>
             {
-                { "query", query }
+                { "query", _currentStateContainer.Query },
+                { "page", _currentStateContainer.CurrentPage }
             });
 
             if (responseInfo.IsSuccess)
@@ -157,12 +174,21 @@ namespace UpcomingMovies.Core.ViewModels
 
         async Task Refresh()
         {
+            IsRefreshing = true;
             LoadFailed = false;
             FailMessage = null;
-            IsRefreshing = true;
-            Movies.Clear();
-            _currentStateContainer.Movies.Clear();
-            _currentStateContainer.CurrentPage = 1;
+
+            if (_currentStateContainer.MovieListType == MovieListType.Search)
+            {
+                SetMovieListToType(_previousStateContainer.MovieListType);
+            }
+            else
+            {
+                Movies.Clear();
+                _currentStateContainer.Movies.Clear();
+                _currentStateContainer.CurrentPage = 1;
+            }
+
             await LoadMovies();
             IsRefreshing = false;
         }
@@ -183,8 +209,13 @@ namespace UpcomingMovies.Core.ViewModels
         /// <param name="movieListType">Movie list type.</param>
         void SetMovieListToType(MovieListType movieListType)
         {
-            if (_currentStateContainer != null && _currentStateContainer.MovieListType != MovieListType.Search)
-                _previousStateContainer = _currentStateContainer;
+            if (_currentStateContainer != null)
+            {
+                if (_currentStateContainer.MovieListType != MovieListType.Search)
+                    _previousStateContainer = _currentStateContainer;
+                else if (_currentStateContainer.MovieListType == movieListType)
+                    return;
+            }
 
             _currentStateContainer = GetMovieStateContainerForType(movieListType);
 
@@ -194,7 +225,10 @@ namespace UpcomingMovies.Core.ViewModels
             FailMessage = null;
 
             if (movieListType == MovieListType.Search)
+            {
                 _currentStateContainer.Movies.Clear();
+                _currentStateContainer.CurrentPage = 1;
+            }
 
             if (_currentStateContainer.Movies.Count > 0) // Circumventing AiForms.CollectionView crash on Android
                 Movies.AddRange(_currentStateContainer.Movies);
@@ -224,7 +258,9 @@ namespace UpcomingMovies.Core.ViewModels
 
         async Task ShowMovieDetailView(Movie movie)
         {
+            IsNavigating = true;
             await _navigationService.Navigate<MovieDetailViewModel, Movie>(movie);
+            IsNavigating = false;
         }
     }
 }
