@@ -142,7 +142,15 @@ namespace UpcomingMovies.Core.ViewModels
             }
 
             SetMovieListToType(MovieListType.Search);
-            _currentStateContainer.Query = query;
+
+            if (_currentStateContainer.Query != query)
+            {
+                _currentStateContainer.Query = query;
+                _currentStateContainer.CurrentPage = 1;
+                _currentStateContainer.TotalPages = 0;
+                _currentStateContainer.Movies.Clear();
+                Movies.Clear();
+            }
 
             var responseInfo = await _movieService.SearchMoviesAsync(new Dictionary<string, object>
             {
@@ -223,12 +231,6 @@ namespace UpcomingMovies.Core.ViewModels
             EmptySearchResults = false;
             LoadFailed = false;
             FailMessage = null;
-
-            if (movieListType == MovieListType.Search)
-            {
-                _currentStateContainer.Movies.Clear();
-                _currentStateContainer.CurrentPage = 1;
-            }
 
             if (_currentStateContainer.Movies.Count > 0) // Circumventing AiForms.CollectionView crash on Android
                 Movies.AddRange(_currentStateContainer.Movies);
