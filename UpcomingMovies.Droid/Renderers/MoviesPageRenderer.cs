@@ -41,8 +41,8 @@ namespace UpcomingMovies.Droid.Renderers
 
             moviesPage.AppearingCalled += async (sender, ea) => 
             {
-                // we are adding again because when we go to detail movie, the toolbar is cleared, the delay is added
-                // because it happens some time after OnAppearing event so we cant add it right away
+                // we are adding again because when we go to detail movie, the toolbar is cleared. 
+                // the delay is added because it happens some time after OnAppearing event so we cant add it right away
                 await Task.Delay(250);
                 AddSearchView();
             };
@@ -65,6 +65,11 @@ namespace UpcomingMovies.Droid.Renderers
         {
             var moviesPage = Element as MoviesPage;
             moviesPage.ViewModel.SearchCommand.Execute(e.NewText);
+
+            if (sender is SearchView searchView)
+            {
+                searchView.ClearFocus();
+            }
         }
 
         void AddSearchView()

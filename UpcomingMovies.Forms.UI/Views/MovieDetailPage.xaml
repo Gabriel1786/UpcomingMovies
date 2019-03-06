@@ -6,9 +6,14 @@
                     xmlns:viewModels="clr-namespace:UpcomingMovies.Core.ViewModels;assembly=UpcomingMovies.Core" 
                     xmlns:mvx="clr-namespace:MvvmCross.Forms.Bindings;assembly=MvvmCross.Forms"
                     xmlns:local="clr-namespace:UpcomingMovies.Core;assembly=UpcomingMovies.Core"
+                    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
                     x:Class="UpcomingMovies.Forms.UI.Views.MovieDetailPage"
-                    Title="Movie Detail">
+                    Title="{Binding Movie.Title}">
     
-    <Label Text="Movie Detail Page"/>
+    <ScrollView x:Name="scrollView">
+        <RelativeLayout x:Name="masterRelativeContainer">
+        <!--  Handled in Code behind -->
+        </RelativeLayout>
+    </ScrollView>
     
 </views:MvxContentPage>

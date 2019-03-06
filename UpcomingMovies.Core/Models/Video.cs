@@ -9,8 +9,23 @@ namespace UpcomingMovies.Core.Models
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        string _site;
         [JsonProperty("site")]
-        public string Site { get; set; }
+        public string Site
+        {
+            get => _site;
+            set
+            {
+                if (value != "YouTube")
+                {
+                    Console.WriteLine($"Must implement {value}");
+                }
+                else
+                {
+                    _site = value;
+                }
+            }
+        }
 
         [JsonProperty("key")]
         public string Key { get; set; }

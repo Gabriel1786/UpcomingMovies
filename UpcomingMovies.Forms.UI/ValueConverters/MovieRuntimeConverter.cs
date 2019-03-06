@@ -4,15 +4,18 @@ using Xamarin.Forms;
 
 namespace UpcomingMovies.Forms.UI.ValueConverters
 {
-    public class NewTextChangedEventConverter : IValueConverter
+    public class MovieRuntimeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is TextChangedEventArgs))
-                return null;
+            if (value is int intValue)
+            {
+                TimeSpan time = TimeSpan.FromMinutes(intValue);
 
-            var textChanged = value as TextChangedEventArgs;
-            return textChanged.NewTextValue;
+                return $"Duration: {time.Hours}h {time.Minutes}min";
+            }
+
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

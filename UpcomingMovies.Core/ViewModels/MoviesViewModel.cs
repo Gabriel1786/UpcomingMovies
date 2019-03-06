@@ -29,6 +29,7 @@ namespace UpcomingMovies.Core.ViewModels
             ShowMovieDetailViewModelCommand = new MvxAsyncCommand<Movie>(ShowMovieDetailView);
             SwitchMovieListTypeCommand = new MvxCommand<MovieListType>(SetMovieListToType);
             SearchCommand = new MvxAsyncCommand<string>(Search);
+            RefreshCommand = new MvxAsyncCommand(Refresh);
             LoadMoreMoviesCommand = new MvxCommand(() =>
             {
                 LoadMoreMoviesTask = MvxNotifyTask.Create(LoadMovies);
@@ -53,6 +54,13 @@ namespace UpcomingMovies.Core.ViewModels
             set => SetProperty(ref _movies, value);
         }
 
+        bool _isRefreshing;
+        public bool IsRefreshing
+        {
+            get => _isRefreshing;
+            set => SetProperty(ref _isRefreshing, value);
+        }
+
         public MvxNotifyTask LoadInitialMoviesTask { get; private set; }
         public MvxNotifyTask LoadMoreMoviesTask { get; private set; }
 
@@ -61,6 +69,7 @@ namespace UpcomingMovies.Core.ViewModels
         public IMvxCommand LoadMoreMoviesCommand { get; }
         public IMvxCommand SwitchMovieListTypeCommand { get; }
         public IMvxAsyncCommand<string> SearchCommand { get; }
+        public IMvxAsyncCommand RefreshCommand { get; }
 
         // Private Methods
         async Task LoadMovies()
@@ -119,6 +128,16 @@ namespace UpcomingMovies.Core.ViewModels
                 SetMovieListToType(_previousStateContainer.MovieListType);
                 //TODO: search failed, showing previous list
             }
+        }
+
+        async Task Refresh()
+        {
+            IsRefreshing = true;
+            Movies.Clear();
+            _currentStateContainer.Movies.Clear();
+            _currentStateContainer.CurrentPage = 1;
+            await LoadMovies();
+            IsRefreshing = false;
         }
 
         MovieStateContainer GetMovieStateContainerForType(MovieListType movieListType)

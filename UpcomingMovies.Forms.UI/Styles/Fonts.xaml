@@ -7,5 +7,15 @@
         <On Platform="Android" Value="Bold,11" />
         <On Platform="iOS" Value="AvenirNext-Bold,Bold,11" />
     </OnPlatform>
+    
+    <OnPlatform x:Key="MoviePosterTitleFontBigger" x:TypeArguments="Font">
+        <On Platform="Android" Value="Bold,18" />
+        <On Platform="iOS" Value="AvenirNext-Bold,Bold,18" />
+    </OnPlatform>
+    
+    <OnPlatform x:Key="MoviePosterTitleFontBiggerItalic" x:TypeArguments="Font">
+        <On Platform="Android" Value="Italic,15" />
+        <On Platform="iOS" Value="AvenirNext-Italic,Italic,15" />
+    </OnPlatform>
 
 </ResourceDictionary>

@@ -76,6 +76,8 @@
     <AndroidResource Include="Resources\layout\Toolbar.axml" />
     <AndroidResource Include="Resources\drawable\movie_placeholder.png" />
     <AndroidResource Include="Resources\menu\search_menu.xml" />
+    <AndroidResource Include="Resources\drawable\person_placeholder.jpg" />
+    <AndroidResource Include="Resources\drawable\youtube_play_button.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
@@ -102,6 +104,9 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Essentials">
       <Version>1.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations">
+      <Version>2.4.4.859</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

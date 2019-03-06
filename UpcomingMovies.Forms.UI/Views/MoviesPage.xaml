@@ -16,10 +16,10 @@
     
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:NewTextChangedEventConverter x:Key="NewTextChangedEventConverter" />
+            <converters:NewTextChangedEventConverter x:Key="newTextChangedEventConverter" />
+            <converters:MovieImagePathConverter x:Key="movieImagePathConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    
     
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutFlags="All" 
@@ -44,7 +44,7 @@
                     <SearchBar.Behaviors> 
                         <behaviors:EventToCommandBehavior EventName="TextChanged"
                                                           Command="{Binding SearchCommand}"
-                                                          Converter="{StaticResource NewTextChangedEventConverter}">
+                                                          Converter="{StaticResource newTextChangedEventConverter}">
                         </behaviors:EventToCommandBehavior>
                     </SearchBar.Behaviors>
             </SearchBar>
@@ -61,7 +61,9 @@
                                LandscapeColumns="4"
                                ColumnSpacing="1"
                                RowSpacing="6"
-                               IsPullToRefreshEnabled="false"
+                               IsPullToRefreshEnabled="true"
+                               RefreshCommand="{Binding RefreshCommand}"   
+                               IsRefreshing="{Binding IsRefreshing}"    
                                PullToRefreshColor="Black"
                                SpacingType="{x:Static ai:SpacingType.Between}"
                                ColumnHeight="290">
@@ -84,7 +86,7 @@
                                                 CacheType="All" RetryCount="0" RetryDelay="500" CacheDuration="30"
                                                 LoadingPlaceholder="movie_placeholder.png"
                                                 ErrorPlaceholder="movie_placeholder.png"
-                                                mvx:Bi.nd="Source MoviePosterPath(PosterPath)"
+                                                Source="{Binding PosterPath, Converter={StaticResource movieImagePathConverter}, ConverterParameter='300'}"
                                                 effects:ShadowEffect.Enabled="true"
                                                 effects:ShadowEffect.ShadowColor="Black"
                                                 effects:ShadowEffect.ShadowRadius="10"

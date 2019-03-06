@@ -33,6 +33,18 @@ namespace UpcomingMovies.Forms.UI.Views
 
                 collectionView.LandscapeColumns = (int)Math.Floor(numberOfCellsL);
             }
+            else
+            {
+                var dipHeight = info.Height / info.Density;
+                var numberOfCellsP = dipHeight / desiredCellWidth;
+
+                collectionView.PortraitColumns = (int)Math.Floor(numberOfCellsP);
+
+                var dipWidth = info.Width / info.Density;
+                var numberOfCellsL = dipWidth / desiredCellWidth;
+
+                collectionView.LandscapeColumns = (int)Math.Floor(numberOfCellsL);
+            }
         }
     }
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:ai="clr-namespace:AiForms.Renderers;assembly=CollectionView"
+             xmlns:effects="clr-namespace:UpcomingMovies.Forms.UI.Effects;assembly=UpcomingMovies.Forms.UI"
+             xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:converters="clr-namespace:UpcomingMovies.Forms.UI.ValueConverters;assembly=UpcomingMovies.Forms.UI"
+             x:Class="UpcomingMovies.Forms.UI.Templates.VideoTemplate"
+             BindableLayout.ItemsSource="{Binding .}">
+    
+    <BindableLayout.ItemTemplate>
+        <DataTemplate>
+             <StackLayout Orientation="Horizontal"
+                          Margin="12,0,20,0">
+                <ImageButton Source="youtube_play_button" 
+                             Aspect="AspectFit" 
+                             HeightRequest="50" 
+                             Clicked="Handle_Clicked"
+                             CommandParameter="{Binding .}"/>
+                <Label Text="{Binding Name}" Margin="20,0,0,0"
+                       Style="{StaticResource MovieDetailStyle}"
+                       VerticalOptions="FillAndExpand"
+                       VerticalTextAlignment="Center"/> 
+            </StackLayout>
+        </DataTemplate>
+    </BindableLayout.ItemTemplate>
+   
+</StackLayout>

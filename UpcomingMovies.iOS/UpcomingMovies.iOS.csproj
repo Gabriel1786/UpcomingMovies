@@ -93,6 +93,10 @@
     <ImageAsset Include="Assets.xcassets\Contents.json" />
     <ImageAsset Include="Assets.xcassets\movie_placeholder.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\movie_placeholder.imageset\movie-placeholder.png" />
+    <ImageAsset Include="Assets.xcassets\person_placeholder.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\person_placeholder.imageset\person_placeholder.jpg" />
+    <ImageAsset Include="Assets.xcassets\youtube_play_button.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\youtube_play_button.imageset\youtube_play_button.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -100,6 +104,8 @@
     <Folder Include="Assets.xcassets\movie_placeholder.imageset\" />
     <Folder Include="Effects\" />
     <Folder Include="Properties\" />
+    <Folder Include="Assets.xcassets\person_placeholder.imageset\" />
+    <Folder Include="Assets.xcassets\youtube_play_button.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -130,6 +136,9 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Essentials">
       <Version>1.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations">
+      <Version>2.4.4.859</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

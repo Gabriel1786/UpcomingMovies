@@ -39,7 +39,13 @@ namespace UpcomingMovies.Core.Models
         [JsonProperty("release_date")]
         public string ReleaseDate { get; set; }
 
+        [JsonProperty("runtime")]
+        public int Runtime { get; set; }
+
         [JsonProperty("videos")]
         public VideoResults VideoResults { get; set; }
+
+        [JsonProperty("credits")]
+        public Credits Credits { get; set; }
     }
 }
