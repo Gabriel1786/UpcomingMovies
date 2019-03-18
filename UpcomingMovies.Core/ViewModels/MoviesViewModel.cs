@@ -26,6 +26,7 @@ namespace UpcomingMovies.Core.ViewModels
             ShowMovieDetailViewModelCommand = new MvxAsyncCommand<Movie>(ShowMovieDetailView);
             SwitchMovieListTypeCommand = new MvxCommand<MovieListType>(SetMovieListToType);
             SearchCommand = new MvxAsyncCommand<string>(Search);
+            CancelSearchCommand = new MvxCommand(CancelSearch);
             RefreshCommand = new MvxAsyncCommand(Refresh);
             LoadMoreMoviesCommand = new MvxCommand(() =>
             {
@@ -94,6 +95,7 @@ namespace UpcomingMovies.Core.ViewModels
         public IMvxCommand LoadMoreMoviesCommand { get; }
         public IMvxCommand SwitchMovieListTypeCommand { get; }
         public IMvxAsyncCommand<string> SearchCommand { get; }
+        public IMvxCommand CancelSearchCommand { get; }
         public IMvxAsyncCommand RefreshCommand { get; }
 
         // Private Methods
@@ -133,11 +135,7 @@ namespace UpcomingMovies.Core.ViewModels
         {
             if (string.IsNullOrEmpty(query))
             {
-                MovieListType previousType = _currentStateContainer.MovieListType;
-                if (_previousStateContainer != null)
-                    previousType = _previousStateContainer.MovieListType;
-
-                SetMovieListToType(previousType);
+                CancelSearch();
                 return;
             }
 
@@ -178,6 +176,15 @@ namespace UpcomingMovies.Core.ViewModels
                 FailMessage = responseInfo.Error;
                 LoadFailed = true;
             }
+        }
+
+        void CancelSearch()
+        {
+            MovieListType previousType = _currentStateContainer.MovieListType;
+            if (_previousStateContainer != null)
+                previousType = _previousStateContainer.MovieListType;
+
+            SetMovieListToType(previousType);
         }
 
         async Task Refresh()
@@ -235,6 +242,11 @@ namespace UpcomingMovies.Core.ViewModels
             if (_currentStateContainer.Movies.Count > 0) // Circumventing AiForms.CollectionView crash on Android
                 Movies.AddRange(_currentStateContainer.Movies);
 
+            SetTitle(movieListType);
+        }
+
+        void SetTitle(MovieListType movieListType)
+        {
             switch (movieListType)
             {
                 case MovieListType.Latest:
@@ -261,8 +273,19 @@ namespace UpcomingMovies.Core.ViewModels
         async Task ShowMovieDetailView(Movie movie)
         {
             IsNavigating = true;
-            await _navigationService.Navigate<MovieDetailViewModel, Movie>(movie);
-            IsNavigating = false;
+            try
+            {
+                await _navigationService.Navigate<MovieDetailViewModel, Movie>(movie);
+            }
+            catch
+            {
+                LoadFailed = true;
+                FailMessage = UiMessages.MovieDetailNavigationFailed;
+            }
+            finally
+            {
+                IsNavigating = false;
+            }
         }
     }
 }

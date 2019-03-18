@@ -126,7 +126,7 @@ namespace UpcomingMovies.Droid.Renderers
             {
                 var moviesPage = Element as MoviesPage;
                 if (!moviesPage.ViewModel.IsNavigating)
-                    moviesPage.ViewModel.SearchCommand.Execute("");
+                    moviesPage.ViewModel.CancelSearchCommand.Execute();
             }
         }
     }

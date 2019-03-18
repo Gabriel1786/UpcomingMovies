@@ -229,7 +229,7 @@ namespace UpcomingMovies.Forms.UI.Views
                 Style = Application.Current.Resources["MovieTitleStyle"] as Style
             };
             titleLabel.FontSize = 13;
-            titleLabel.SetBinding(Label.TextProperty, new Binding("Movie.Title", BindingMode.Default));
+            titleLabel.SetBinding(Label.TextProperty, new Binding("Movie.Title"));
             return titleLabel;
         }
 

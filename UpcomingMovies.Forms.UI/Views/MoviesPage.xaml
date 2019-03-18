@@ -8,6 +8,7 @@
                       xmlns:local="clr-namespace:UpcomingMovies.Core;assembly=UpcomingMovies.Core"
                       xmlns:behaviors="clr-namespace:UpcomingMovies.Forms.UI.Behaviors;assembly=UpcomingMovies.Forms.UI"
                       xmlns:converters="clr-namespace:UpcomingMovies.Forms.UI.ValueConverters;assembly=UpcomingMovies.Forms.UI"
+                      xmlns:components="clr-namespace:UpcomingMovies.Forms.UI.Components;assembly=UpcomingMovies.Forms.UI"
                       xmlns:effects="clr-namespace:UpcomingMovies.Forms.UI.Effects;assembly=UpcomingMovies.Forms.UI"
                       xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
                       xmlns:ai="clr-namespace:AiForms.Renderers;assembly=CollectionView"
@@ -25,7 +26,7 @@
         <StackLayout AbsoluteLayout.LayoutFlags="All" 
                      AbsoluteLayout.LayoutBounds="0,0,1,1"  
                      Spacing="0">
-            <SearchBar x:Name="searchBar" 
+            <components:CustomSearchBar x:Name="searchBar" 
                        CancelButtonColor="White"
                        Placeholder="Search"
                        HeightRequest="44"
@@ -41,13 +42,12 @@
                         <On Platform="iOS" Value="true"/>
                     </OnPlatform>
                 </SearchBar.IsVisible>
-                <!--<SearchBar.Behaviors> 
-                    <behaviors:EventToCommandBehavior EventName="TextChanged"
-                                                      Command="{Binding SearchCommand}"
-                                                      Converter="{StaticResource newTextChangedEventConverter}">
+                <SearchBar.Behaviors> 
+                    <behaviors:EventToCommandBehavior EventName="CancelButtonTapped"
+                                                      Command="{Binding CancelSearchCommand}">
                     </behaviors:EventToCommandBehavior>
-                </SearchBar.Behaviors>-->
-            </SearchBar>
+                </SearchBar.Behaviors>
+            </components:CustomSearchBar >
             <ai:GridCollectionView x:Name="collectionView" 
                                BothSidesMargin="5"
                                GroupFirstSpacing="0"
