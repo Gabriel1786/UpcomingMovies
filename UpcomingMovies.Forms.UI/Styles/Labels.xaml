@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+                    x:Class="UpcomingMovies.Forms.UI.Styles.Labels">
+    
+    <Style x:Key="MovieListTitleStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="Black"/>
+        <Setter Property="Font" Value="{DynamicResource MoviePosterTitleFont}" />
+    </Style>
+    
+    <Style x:Key="MovieTitleStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="Black"/>
+        <Setter Property="Font" Value="{DynamicResource MoviePosterTitleFont}" />
+    </Style>
+    
+    <Style x:Key="MovieDetailStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="Gray"/>
+        <Setter Property="Font" Value="11" />
+    </Style>
+    
+    <Style x:Key="MovieDetailHeaderStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="White"/>
+        <Setter Property="VerticalOptions" Value="CenterAndExpand" /> 
+        <Setter Property="Margin" Value="30,0,0,0" /> 
+        <Setter Property="VerticalTextAlignment" Value="Center" /> 
+        <Setter Property="Font" Value="{DynamicResource MovieDetailHeaderFont}" />
+    </Style>
+    
+    <Style x:Key="MovieDetailQuoteStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="Black"/>
+        <Setter Property="Font" Value="{DynamicResource MovieDetailQuoteFont}" />
+    </Style>
+    
+</ResourceDictionary>

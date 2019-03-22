@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<views:MvxContentPage x:TypeArguments="viewModels:MoviesViewModel" 
+                      xmlns="http://xamarin.com/schemas/2014/forms" 
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms" 
+                      xmlns:viewModels="clr-namespace:UpcomingMovies.Core.ViewModels;assembly=UpcomingMovies.Core" 
+                      xmlns:mvx="clr-namespace:MvvmCross.Forms.Bindings;assembly=MvvmCross.Forms"
+                      xmlns:local="clr-namespace:UpcomingMovies.Core;assembly=UpcomingMovies.Core"
+                      xmlns:behaviors="clr-namespace:UpcomingMovies.Forms.UI.Behaviors;assembly=UpcomingMovies.Forms.UI"
+                      xmlns:converters="clr-namespace:UpcomingMovies.Forms.UI.ValueConverters;assembly=UpcomingMovies.Forms.UI"
+                      xmlns:components="clr-namespace:UpcomingMovies.Forms.UI.Components;assembly=UpcomingMovies.Forms.UI"
+                      xmlns:effects="clr-namespace:UpcomingMovies.Forms.UI.Effects;assembly=UpcomingMovies.Forms.UI"
+                      xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                      xmlns:ai="clr-namespace:AiForms.Renderers;assembly=CollectionView"
+                      x:Class="UpcomingMovies.Forms.UI.Views.MoviesPage"
+                      Title="{Binding Title}">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NewTextChangedEventConverter x:Key="newTextChangedEventConverter" />
+            <converters:MovieImagePathConverter x:Key="movieImagePathConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutFlags="All" 
+                     AbsoluteLayout.LayoutBounds="0,0,1,1"  
+                     Spacing="0">
+            <components:CustomSearchBar x:Name="searchBar" 
+                       CancelButtonColor="White"
+                       Placeholder="Search"
+                       HeightRequest="44"
+                       BackgroundColor="{StaticResource primaryDarkColor}"
+                       HorizontalOptions="FillAndExpand"
+                       TextColor="Black"
+                       PlaceholderColor="LightGray"
+                       SearchCommand="{Binding SearchCommand}"
+                       SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}">
+                <SearchBar.IsVisible> <!-- Android using native approach in custom renderer -->
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <On Platform="Android" Value="false"/>
+                        <On Platform="iOS" Value="true"/>
+                    </OnPlatform>
+                </SearchBar.IsVisible>
+                <SearchBar.Behaviors> 
+                    <behaviors:EventToCommandBehavior EventName="CancelButtonTapped"
+                                                      Command="{Binding CancelSearchCommand}">
+                    </behaviors:EventToCommandBehavior>
+                </SearchBar.Behaviors>
+            </components:CustomSearchBar >
+            <ai:GridCollectionView x:Name="collectionView" 
+                               BothSidesMargin="5"
+                               GroupFirstSpacing="0"
+                               GroupLastSpacing="0"
+                               ItemsSource="{Binding Movies}"
+                               ItemTapCommand="{Binding ShowMovieDetailViewModelCommand}"
+                               TouchFeedbackColor="Transparent"
+                               GridType="{x:Static ai:GridType.UniformGrid}"
+                               PortraitColumns="2"
+                               LandscapeColumns="4"
+                               ColumnSpacing="1"
+                               RowSpacing="6"
+                               IsPullToRefreshEnabled="true"
+                               RefreshCommand="{Binding RefreshCommand}"   
+                               IsRefreshing="{Binding IsRefreshing}"    
+                               PullToRefreshColor="Black"
+                               SpacingType="{x:Static ai:SpacingType.Between}"
+                               ColumnHeight="290">
+                <x:Arguments>
+                    <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                </x:Arguments>
+                
+                <ListView.Behaviors>  
+                    <behaviors:InfiniteScroll LoadMoreCommand="{Binding LoadMoreMoviesCommand}" />  
+                </ListView.Behaviors>
+                
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ai:ContentCell>
+                            <AbsoluteLayout Margin="5" BackgroundColor="Transparent">
+                                <ff:CachedImage AbsoluteLayout.LayoutFlags="All" 
+                                                AbsoluteLayout.LayoutBounds="0,0,1,0.85"
+                                                BackgroundColor="Transparent" Aspect="AspectFit"
+                                                CacheType="All" RetryCount="5" RetryDelay="1500" CacheDuration="30"
+                                                LoadingPlaceholder="movie_placeholder.png"
+                                                ErrorPlaceholder="movie_placeholder.png"
+                                                Source="{Binding PosterPath, Converter={StaticResource movieImagePathConverter}, ConverterParameter='300'}"
+                                                effects:ShadowEffect.Enabled="true"
+                                                effects:ShadowEffect.ShadowColor="Black"
+                                                effects:ShadowEffect.ShadowRadius="10"
+                                                effects:ShadowEffect.ShadowOpacity="0.5"
+                                                effects:ShadowEffect.ShadowXOffset="4"
+                                                effects:ShadowEffect.ShadowYOffset="4"/>
+                                <Label Text="{Binding Title}" BackgroundColor="Transparent" Margin="3"
+                                       Style="{StaticResource MovieListTitleStyle}"
+                                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                                       AbsoluteLayout.LayoutFlags="YProportional,WidthProportional,HeightProportional" 
+                                       AbsoluteLayout.LayoutBounds="0,1,1,0.15" />
+                            </AbsoluteLayout>
+                        </ai:ContentCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ai:GridCollectionView>
+        </StackLayout>
+        <Label AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+               AbsoluteLayout.LayoutBounds="0,1,1,AutoSize"
+               IsVisible="{Binding LoadFailed}" TextColor="Gray" FontSize="14"
+               BackgroundColor="White" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+               HeightRequest="50"
+               Text="{Binding FailMessage}"/>
+        <Label AbsoluteLayout.LayoutFlags="PositionProportional"
+               AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
+               TextColor="Gray" FontSize="16"
+               IsVisible="{Binding EmptySearchResults}"
+               Text="No movies found."/>
+    </AbsoluteLayout>
+    
+</views:MvxContentPage>

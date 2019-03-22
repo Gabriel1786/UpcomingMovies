@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ai:ContentCell xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:ai="clr-namespace:AiForms.Renderers;assembly=CollectionView"
+             xmlns:effects="clr-namespace:UpcomingMovies.Forms.UI.Effects;assembly=UpcomingMovies.Forms.UI"
+             xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:converters="clr-namespace:UpcomingMovies.Forms.UI.ValueConverters;assembly=UpcomingMovies.Forms.UI"
+             x:Class="UpcomingMovies.Forms.UI.Templates.CastTemplate">
+    
+    <StackLayout Margin="8">
+        <StackLayout.Resources>
+            <ResourceDictionary>
+                <converters:PersonImagePathConverter x:Key="personImagePathConverter" />
+            </ResourceDictionary>
+        </StackLayout.Resources>
+        
+        <ffimage:CachedImage HorizontalOptions="Center" VerticalOptions="Center"
+            WidthRequest="90" HeightRequest="90"
+            DownsampleToViewSize="true"
+            Source="{Binding ProfilePath, Converter={StaticResource personImagePathConverter}, ConverterParameter=200}"
+            LoadingPlaceholder="person_placeholder.jpg"
+            ErrorPlaceholder="person_placeholder.jpg"                 
+            effects:ShadowEffect.Enabled="true"
+            effects:ShadowEffect.ShadowColor="Black"
+            effects:ShadowEffect.ShadowRadius="6"
+            effects:ShadowEffect.ShadowOpacity="0.5"
+            effects:ShadowEffect.ShadowXOffset="2"
+            effects:ShadowEffect.ShadowYOffset="2">
+            <ffimage:CachedImage.Transformations>
+                <fftransformations:CircleTransformation BorderHexColor="#FFFFFF">
+                    <fftransformations:CircleTransformation.BorderSize>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="Android" Value="12" />
+                            <On Platform="iOS" Value="12" />
+                        </OnPlatform>
+                    </fftransformations:CircleTransformation.BorderSize>
+                </fftransformations:CircleTransformation>
+            </ffimage:CachedImage.Transformations>
+        </ffimage:CachedImage>
+        <Label Text="{Binding Name}" Style="{StaticResource MovieListTitleStyle}"
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center"/>
+        <Label Text="{Binding Character}" Style="{StaticResource MovieDetailStyle}"
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center" />
+    </StackLayout>
+    
+</ai:ContentCell>

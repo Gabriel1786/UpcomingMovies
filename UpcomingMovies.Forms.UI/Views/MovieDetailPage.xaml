@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<views:MvxContentPage x:TypeArguments="viewModels:MovieDetailViewModel" 
+                    xmlns="http://xamarin.com/schemas/2014/forms" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+                    xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms" 
+                    xmlns:viewModels="clr-namespace:UpcomingMovies.Core.ViewModels;assembly=UpcomingMovies.Core" 
+                    xmlns:mvx="clr-namespace:MvvmCross.Forms.Bindings;assembly=MvvmCross.Forms"
+                    xmlns:local="clr-namespace:UpcomingMovies.Core;assembly=UpcomingMovies.Core"
+                    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                    x:Class="UpcomingMovies.Forms.UI.Views.MovieDetailPage"
+                    Title="{Binding Movie.Title}">
+    
+    <ScrollView x:Name="scrollView">
+        <RelativeLayout x:Name="masterRelativeContainer">
+        <!--  Handled in Code behind -->
+        </RelativeLayout>
+    </ScrollView>
+    
+</views:MvxContentPage>
